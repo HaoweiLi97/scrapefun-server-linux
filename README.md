@@ -1,84 +1,40 @@
 # ScrapeFun Linux Server
 
-ScrapeFun 的 Linux AMD64 服务端发行版。下载发布包后即可在 Linux
-服务器上运行网页界面，并由 systemd 持续管理服务。
+**简体中文** · [English](./README.en.md)
 
-最新安装包请到 [Releases](https://github.com/HaoweiLi97/scrapefun-server-linux/releases) 下载。
+Linux amd64 原生服务端，提供网页界面并由 systemd 管理。当前稳定版为 [0.4.4](https://github.com/HaoweiLi97/scrapefun-server-linux/releases/tag/v0.4.4)。
 
-## 系统要求
+## 安装与升级
 
-- 64 位 x86_64 / AMD64 Linux（面向 glibc 发行版构建）
-- Node.js 20、22 或 24
-- systemd（使用安装脚本时需要）
-- 建议安装 FFmpeg；播放、转码和部分媒体处理功能依赖它
+需要 glibc Linux x86_64 / amd64、运行中的 systemd、Node.js 20/22/24、Python 3、curl、FFmpeg 和 FFprobe。
 
-## 安装
-
-1. 从某个 Release 下载以下四个文件到同一目录：发布包、`.sha256`、
-   `SHA256SUMS` 和安装脚本。
-2. 在下载目录校验并安装：
+运行公开安装入口：
 
 ```bash
-sha256sum -c SHA256SUMS
-sudo bash install-scrapefun-server-linux-amd64.sh \
-  scrapefun-server-linux-amd64-<version>-stable.tar.gz
+curl -fsSL https://raw.githubusercontent.com/HaoweiLi97/ScrapeFun/main/scripts/one-click-native-deploy.sh | sudo bash
 ```
 
-安装程序会创建并启动 `scrapefun` 服务。首次安装会自动创建认证密钥。
-完成后在浏览器打开：
+已有安装需先通过上方命令，或执行一次 `sudo scrapefun update`，升级到 0.4.4 并安装网页更新所需组件。自定义实例请沿用 `--config-dir`。完成后可从网页手动安装更新；更新会重启服务并短暂中断任务。
 
-```text
-http://<服务器地址>:8096
-```
-
-## 服务管理
+也可下载 Release 中的原生归档、对应 `.sha256`、`SHA256SUMS` 和 `one-click-native-deploy.sh`，在下载目录执行：
 
 ```bash
-sudo systemctl status scrapefun
-sudo systemctl restart scrapefun
-sudo journalctl -u scrapefun -f
+sha256sum --check --ignore-missing SHA256SUMS
+sudo bash one-click-native-deploy.sh stable --archive ./scrapefun-server-linux-amd64-0.4.4-stable.tar.gz
 ```
 
-默认位置：
+安装、更新与启动工具已包含在归档中；Release 另附 `linux-native-updater.py`。安装器检查端口、依赖与包完整性，更新前备份数据，失败时恢复旧安装与数据。首次访问默认地址为 `http://<服务器地址>:8096`，端口可在安装时指定。
 
-| 内容 | 位置 |
-| --- | --- |
-| 程序 | `/opt/scrapefun` |
-| 数据库、图片与缓存 | `/var/lib/scrapefun` |
-| 配置 | `/etc/scrapefun/server.env` |
-
-可在 `/etc/scrapefun/server.env` 中修改端口或监听地址，例如：
+## 管理与数据
 
 ```bash
-PORT=8096
-HOST=0.0.0.0
+sudo scrapefun status
+sudo scrapefun health
+sudo scrapefun logs --follow
+sudo scrapefun restart
+sudo scrapefun backup
 ```
 
-修改后重启服务使配置生效。
+默认程序位于 `/opt/scrapefun`，数据位于 `/var/lib/scrapefun`，配置位于 `/etc/scrapefun/server.env`。更新保留端口、认证配置与数据；备份包含密钥，应妥善保存。
 
-## 更新
-
-下载新版 Release 的四个文件，先校验 `SHA256SUMS`，再用同一条安装命令
-安装新归档。服务会自动重启；数据和配置会保留在上述目录中。
-
-## WSL
-
-可在 WSL2 中直接解压后试运行，不需要 systemd：
-
-```bash
-tar -xzf scrapefun-server-linux-amd64-<version>-stable.tar.gz
-cd scrapefun-server-linux-amd64-<version>-stable
-export APP_AUTH_SECRET="$(node -e "process.stdout.write(require('node:crypto').randomBytes(48).toString('base64url'))")"
-export SCRAPEFUN_DATA_DIR="$PWD/data"
-./start.sh
-```
-
-在 Windows 浏览器中访问 `http://localhost:8096`。如果希望 WSL 在后台自动
-运行，请启用 WSL 的 systemd 后使用上面的安装方式。
-
-## 常见问题
-
-- 服务无法启动：先运行 `sudo journalctl -u scrapefun -n 100 --no-pager` 查看日志。
-- 端口被占用：修改 `server.env` 中的 `PORT`，然后重启服务。
-- 媒体播放或转码不可用：确认服务器已安装 `ffmpeg` 和 `ffprobe`，且它们在 `PATH` 中。
-- GPU 图像增强可用性取决于主机 GPU、Vulkan 驱动与权限；没有可用 GPU 时，普通服务功能仍可使用。
+完整参数、多实例、自定义路径、WSL 与故障排查见 [Linux 安装与管理](https://github.com/HaoweiLi97/ScrapeFun/blob/main/docs/linux-server-management.md)。GPU 增强取决于主机驱动与权限。
