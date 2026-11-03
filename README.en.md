@@ -1,12 +1,25 @@
-# ScrapeFun Linux Server
-
-[简体中文](./README.md) · **English**
+<div align="center">
+  <img src="./docs/images/server-icon.png" alt="ScrapeFun Server" width="80" />
+  <h1>ScrapeFun Server for Linux</h1>
+  <p><a href="./README.md">简体中文</a> · <strong>English</strong></p>
+  <p><a href="https://scrapefun.com/?lang=en">Website</a> · <a href="https://github.com/HaoweiLi97/scrapefun-server-linux/releases/latest">Download</a> · <a href="https://github.com/HaoweiLi97/scrapefun-server-linux/releases">All releases</a> · <a href="https://scrapefun.com/?lang=en#/docs">Documentation</a></p>
+</div>
 
 Native Linux amd64 Server with a web interface and systemd service management. The current stable release is [0.5.0](https://github.com/HaoweiLi97/scrapefun-server-linux/releases/tag/v0.5.0).
 
+## Downloads and requirements
+
+| Item | Stable 0.5.0 |
+| --- | --- |
+| Download | [Release page](https://github.com/HaoweiLi97/scrapefun-server-linux/releases/tag/v0.5.0) |
+| System | glibc Linux with running systemd |
+| Architecture | x86_64 / amd64 |
+| Archive | `scrapefun-server-linux-amd64-0.5.0-stable.tar.gz` |
+| Verification | Archive `.sha256` and `SHA256SUMS` |
+
 ## Install and update
 
-Requires glibc Linux x86_64 / amd64, running systemd, Node.js 22.13+ or 24, Python 3, curl, FFmpeg and FFprobe.
+Requires glibc Linux x86_64 / amd64, running systemd, Node.js 22 (22.13 or a later 22.x) or 24, Python 3, curl, FFmpeg and FFprobe.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/HaoweiLi97/ScrapeFun/main/scripts/one-click-native-deploy.sh | sudo bash
@@ -37,3 +50,9 @@ sudo scrapefun backup
 Defaults: program `/opt/scrapefun`, data `/var/lib/scrapefun`, configuration `/etc/scrapefun/server.env`. Updates preserve ports, authentication settings and data. Backups contain secrets; store them securely.
 
 See [installation and management](https://github.com/HaoweiLi97/ScrapeFun/blob/main/docs/linux-server-management.md) for custom paths, multiple instances, WSL and troubleshooting. GPU enhancement depends on host drivers and permissions.
+
+## Support and licensing
+
+[Documentation](https://scrapefun.com/?lang=en#/docs) · [Report an issue](https://github.com/HaoweiLi97/ScrapeFun/issues) · [Licensing](https://github.com/HaoweiLi97/ScrapeFun/blob/main/legal/README.en.md) · [Third-party components](https://github.com/HaoweiLi97/ScrapeFun/blob/main/THIRD_PARTY_NOTICES.en.md)
+
+For accounts, activation or private logs, contact `scrapefun@outlook.com`. Keep passwords, activation codes and backup secrets out of public issues.
