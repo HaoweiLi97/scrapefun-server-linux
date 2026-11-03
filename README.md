@@ -5,16 +5,16 @@
   <p><a href="https://scrapefun.com/">官网</a> · <a href="https://github.com/HaoweiLi97/scrapefun-server-linux/releases/latest">下载安装</a> · <a href="https://github.com/HaoweiLi97/scrapefun-server-linux/releases">全部发行</a> · <a href="https://scrapefun.com/#/docs">使用文档</a></p>
 </div>
 
-Linux amd64 原生服务端，提供网页界面并由 systemd 管理。当前稳定版为 [0.5.0](https://github.com/HaoweiLi97/scrapefun-server-linux/releases/tag/v0.5.0)。
+Linux amd64 原生服务端，提供网页界面并由 systemd 管理。当前稳定版为 [0.5.2](https://github.com/HaoweiLi97/scrapefun-server-linux/releases/tag/v0.5.2)。
 
 ## 下载与系统要求
 
-| 项目 | 0.5.0 正式版 |
+| 项目 | 0.5.2 正式版 |
 | --- | --- |
-| 下载 | [发行页](https://github.com/HaoweiLi97/scrapefun-server-linux/releases/tag/v0.5.0) |
+| 下载 | [发行页](https://github.com/HaoweiLi97/scrapefun-server-linux/releases/tag/v0.5.2) |
 | 系统 | 使用 glibc 且正在运行 systemd 的 Linux |
 | 架构 | x86_64 / amd64 |
-| 安装归档 | `scrapefun-server-linux-amd64-0.5.0-stable.tar.gz` |
+| 安装归档 | `scrapefun-server-linux-amd64-0.5.2-stable.tar.gz` |
 | 校验 | 归档的 `.sha256`、`SHA256SUMS` |
 
 ## 安装与升级
@@ -34,7 +34,7 @@ curl -fsSL https://raw.githubusercontent.com/HaoweiLi97/ScrapeFun/main/scripts/o
 ```bash
 curl -fsSL https://raw.githubusercontent.com/HaoweiLi97/ScrapeFun/main/scripts/one-click-native-deploy.sh -o one-click-native-deploy.sh
 sha256sum --check --ignore-missing SHA256SUMS
-sudo bash one-click-native-deploy.sh stable --archive ./scrapefun-server-linux-amd64-0.5.0-stable.tar.gz
+sudo bash one-click-native-deploy.sh stable --archive ./scrapefun-server-linux-amd64-0.5.2-stable.tar.gz
 ```
 
 安装、更新与启动工具已包含在归档中。安装器检查端口、依赖与包完整性，更新前备份数据，失败时恢复旧安装与数据。首次访问默认地址为 `http://<服务器地址>:8096`，端口可在安装时指定。
